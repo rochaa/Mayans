@@ -1,2 +1,10 @@
 # Mayans
-TDD, DDD, Asp.Net Core 2.1, API Rest e SWAGGER
+<b>Basic project with</b>
+
+Asp.Net Core 2.1
+
+API Rest (SWAGGER)
+
+TDD 
+
+DDD
