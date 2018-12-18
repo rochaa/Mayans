@@ -24,5 +24,10 @@ namespace Mayans.Domain.Transforms
             Word1 = word1;
             Word2 = word2;
         }
+
+        public void WriteResult(int result)
+        {
+            Result = result;
+        }
     }
 }

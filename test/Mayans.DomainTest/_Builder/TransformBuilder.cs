@@ -1,6 +1,7 @@
 using System;
 using Bogus;
 using Mayans.Domain.Transforms;
+using Mayans.DomainTest.Transforms;
 
 namespace Mayans.DomainTest._Builder
 {
@@ -34,6 +35,14 @@ namespace Mayans.DomainTest._Builder
         public Transform Build()
         {
             return new Transform(Word1, Word2);
+        }
+
+        public TransformDto BuildDto()
+        {
+            return new TransformDto {
+                Word1 = Word1,
+                Word2 = Word2
+            };
         }
     }
 }
