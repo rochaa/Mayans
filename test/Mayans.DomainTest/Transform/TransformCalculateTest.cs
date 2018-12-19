@@ -1,5 +1,8 @@
+using System.Text.RegularExpressions;
+using Mayans.Domain._Base;
 using Mayans.Domain.Transforms;
 using Mayans.DomainTest._Builder;
+using Mayans.DomainTest._Extensions;
 using Moq;
 using Xunit;
 
@@ -9,45 +12,54 @@ namespace Mayans.DomainTest.Transforms
     {
         private readonly TransformCalculate _transformCalculate;
         private TransformDto _transformDto;
-        private Mock<Transform> _result;
 
         public TransformCalculateTest()
         {
-            _transformDto = TransformBuilder.New().BuildDto();
+            _transformDto = new TransformDto();
             _transformCalculate = new TransformCalculate();
-            _result = new Mock<Transform>();
         } 
 
         [Fact]
-        public void MustCalculateTheTransformation()
+        public void MustCalculateTheTransformationBetweenTomAndJerry()
         {
             //Given
-        
+            var resultExpected = 1;
+            _transformDto.Word1 = "GATO";
+            _transformDto.Word2 = "RATO";
+
             //When
-            var result = _transformCalculate.Calculate(_transformDto);
-        
+            var transform = _transformCalculate.Calculate(_transformDto);
+
             //Then
-            _result.VerifySet(w => w.WriteResult(result));
+            Assert.Equal(resultExpected, transform.Result);
         }
-    }
 
-    public class TransformCalculate
-    {
-        public int Calculate(TransformDto transformDto)
+        [Fact]
+        public void MustCalculateTheTransformationBetweenHorseAndDuck()
         {
-            var transform = new Transform(transformDto.Word1, transformDto.Word2);
-            var result = 0;
+            //Given
+            var resultExpected = 4;
+            _transformDto.Word1 = "CAVALO";
+            _transformDto.Word2 = "PATO";
 
-            transform.WriteResult(result);
+            //When
+            var transform = _transformCalculate.Calculate(_transformDto);
 
-            return transform.Result;
+            //Then
+            Assert.Equal(resultExpected, transform.Result);
         }
-    }
 
-    public class TransformDto
-    {
-        public string Word1 { get; set; }
-        public string Word2 { get; set; }
-        public int Result { get; set; }
+        [Fact]
+        public void Word2MustNotBiggerThanWord1()
+        {
+            //Given
+            _transformDto.Word1 = "PATO";
+            _transformDto.Word2 = "CAVALO";
+
+            //Then
+            Assert.Throws<DomainException>(() =>
+                 _transformCalculate.Calculate(_transformDto))
+            .WithMessage(Resource.Word2LargerThanWord1);
+        }
     }
 }

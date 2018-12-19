@@ -11,10 +11,5 @@ namespace Mayans.Domain._Base
         {
             Messages = messages;
         }
-
-        internal void WithMessage(object word1Invalid)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

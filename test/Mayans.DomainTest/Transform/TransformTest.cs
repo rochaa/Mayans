@@ -39,6 +39,7 @@ namespace Mayans.DomainTest.Transforms
         [Theory]
         [InlineData("ABDC!@#")]
         [InlineData("ABC-123")]
+        [InlineData("áé")]
         public void MustNotHaveWord1Invalid(string word1Invalid)
         {
             //Then
@@ -50,6 +51,7 @@ namespace Mayans.DomainTest.Transforms
         [Theory]
         [InlineData("&*()YWZ")]
         [InlineData("6789-JHGF")]
+        [InlineData("óó")]
         public void MustNotHaveWord2Invalid(string word2Invalid)
         {
             //Then
