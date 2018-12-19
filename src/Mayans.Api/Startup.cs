@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Mayans.Api._Base;
+using Mayans.Domain.Transforms;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,6 +28,12 @@ namespace Mayans.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<TransformCalculate>();
+
+            Mapper.Initialize(cfg => {
+                cfg.CreateMap<Transform, TransformDto>();
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -41,7 +50,7 @@ namespace Mayans.Api
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            app.UseMiddleware(typeof(HandlingMiddleware));
             app.UseMvc();
         }
     }
