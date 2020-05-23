@@ -1,5 +1,4 @@
-# Mayans
-<b>Basic project with</b>
+# Basic project with
 
 Asp.Net Core 2.1
 
